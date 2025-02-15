@@ -1,28 +1,48 @@
-// El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
+
 //array de amigos
 let amigos = [];
 
 // funcion que agrega el nombre del amigo en un array
-function agregarAmigo(){
+function agregarAmigo() {
     let friend = document.getElementById('amigo').value;
-
     // saber que tipo de valor ingreso el usuario
-    console.log(typeof friend);
+    // console.log(typeof friend);
 
-    // no permitir que el usuario ingrese un valor vacio o valor numerico
-    if(friend === '' || !isNaN(friend)){
-        alert('Ingrese un nombre valido');
+    // Implementando una validación para asegurarse de que el campo no esté vacío. Si está vacío, mostrar un alert con un mensaje de error: "Por favor, inserte un nombre."
+    if (friend === '' || !isNaN(friend)) {
+        alert('Por favor, inserte un nombre.');
         return;
-    }   
-    // si el usuario ingresa un nombre valido, se añade al array
+    } else {
+        console.log(`Nombre válido: ${friend}`);
+    }
+    //Si el valor es válido, se añade al array de amigos
     amigos.push(friend);
-    console.log(amigos);
+    // console.log(amigos);
+
     // limpiar el campo de texto despues de añadir un amigo
     limpiarInput();
+
+    // mostrar los amigos en la lista
+    for (let i = 0; i < amigos.length; i++) {
+        // console.log(amigos[i]);
+        let listaAmigos = document.querySelector('#listaAmigos');
+        listaAmigos.innerHTML = amigos.map(amigo => `<li>${amigo}</li>`).join('');
+    }
 }
 // limpiar el campo de texto despues de añadir un amigo
-function limpiarInput(){
+function limpiarInput() {
     document.querySelector('#amigo').value = '';
 }
-
-// funcion que muestra los amigos en la lista
+// funcion que sortea todos los amigos de la lista
+function sortearAmigo() {
+    // si el array esta vacio, mostrar un mensaje de alerta
+    if (amigos.length === 0) {
+        alert('No hay amigos en la lista');
+        return;
+    } else {
+        // si el array tiene amigos, se sortea un amigo
+        let amigoSorteado = amigos[Math.floor(Math.random() * amigos.length)];
+        console.log(`amigo sorteado: ${amigoSorteado}`);
+        document.querySelector('#listaAmigos').innerHTML = (`El amigo sorteado es: ${amigoSorteado}`);
+    }
+}
